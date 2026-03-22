@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chesca's Collection POS Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="scene">
+    <div class="scene-copy">
+      <p class="scene-eyebrow">POS Prototype</p>
+      <h1>Chesca's Collection</h1>
+      <p class="scene-text">Tablet-style point of sale and inventory prototype for a women's clothing store. Receipts and stock are saved locally in browser storage without a database.</p>
+    </div>
+
+    <div class="tablet">
+      <div class="tablet-camera"></div>
+      <div class="tablet-screen">
+        <header class="app-header">
+          <div class="header-left">
+            <div>
+              <p class="app-kicker">Point of Sale</p>
+              <h2>Chesca's Collection</h2>
+            </div>
+          </div>
+
+          <div class="header-right">
+            <div class="header-actions">
+              <button class="view-button active" id="posViewButton" type="button">POS View</button>
+              <button class="view-button" id="inventoryViewButton" type="button">Inventory Management</button>
+            </div>
+            <div class="status-card">
+              <span>Cashier</span>
+              <strong>Claude D.</strong>
+            </div>
+            <div class="status-card">
+              <span>Products</span>
+              <strong id="productCount">0</strong>
+            </div>
+            <div class="status-card">
+              <span>Time</span>
+              <strong id="clock">--:--</strong>
+            </div>
+          </div>
+        </header>
+
+        <nav class="category-tabs" id="filterRow"></nav>
+
+        <div class="view-stack">
+          <section class="app-view active" id="posView">
+            <section class="pos-layout">
+              <div class="left-column">
+                <section class="product-panel panel-card">
+                  <div class="tool-row">
+                    <button class="tool-pill" id="searchButton" type="button">Search</button>
+                    <button class="tool-pill" id="barcodeButton" type="button">Barcode</button>
+                    <label class="search-field">
+                      <input type="search" id="searchInput" placeholder="Search products, colors, or categories">
+                    </label>
+                  </div>
+
+                  <div class="catalog-grid" id="catalogGrid"></div>
+                </section>
+
+                <section class="history-panel panel-card">
+                  <div class="panel-heading">
+                    <div>
+                      <p class="section-eyebrow">Saved Receipts</p>
+                      <h3>Receipt History</h3>
+                    </div>
+                    <div class="header-actions">
+                      <button class="secondary-action" id="exportReceiptsButton" type="button">Export JSON</button>
+                      <button class="secondary-action" id="clearHistoryButton" type="button">Clear History</button>
+                    </div>
+                  </div>
+
+                  <div class="history-meta">
+                    <span>Saved locally in browser storage.</span>
+                    <span id="historyCount">0 receipts</span>
+                  </div>
+
+                  <div class="receipt-history" id="receiptHistory"></div>
+                </section>
+              </div>
+
+              <aside class="order-panel panel-card">
+                <div class="order-heading">
+                  <div>
+                    <p class="section-eyebrow">Order Summary</p>
+                    <h3>Current Sale</h3>
+                  </div>
+                  <span class="count-badge" id="itemCountChip">0 items</span>
+                </div>
+
+                <div class="cart-list" id="cartList"></div>
+
+                <div class="summary-card">
+                  <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong id="subtotalValue">PHP 0.00</strong>
+                  </div>
+                  <div class="summary-row">
+                    <span>Discount</span>
+                    <strong id="discountValue">PHP 0.00</strong>
+                  </div>
+                  <div class="summary-row">
+                    <span>VAT</span>
+                    <strong id="taxValue">PHP 0.00</strong>
+                  </div>
+                  <div class="summary-row total">
+                    <span>Total</span>
+                    <strong id="totalValue">PHP 0.00</strong>
+                  </div>
+                </div>
+
+                <div class="payment-section">
+                  <p class="section-eyebrow">Payment Method</p>
+                  <div class="payment-options" id="paymentOptions"></div>
+                </div>
+
+                <div class="action-row">
+                  <button class="secondary-action" id="clearCartButton" type="button">Clear Sale</button>
+                  <button class="primary-action" id="checkoutButton" type="button">Proceed to Payment</button>
+                </div>
+
+                <p class="feedback-line" id="checkoutNote">Buttons are interactive. Inventory and receipts are saved locally after every completed checkout.</p>
+              </aside>
+            </section>
+          </section>
+
+          <section class="app-view" id="inventoryView">
+            <section class="inventory-layout">
+              <aside class="inventory-overview panel-card">
+                <div class="panel-heading">
+                  <div>
+                    <p class="section-eyebrow">Inventory Management</p>
+                    <h3>Stock Overview</h3>
+                  </div>
+                </div>
+                <div class="inventory-stats" id="inventoryStats"></div>
+              </aside>
+
+              <section class="inventory-manager panel-card">
+                <div class="panel-heading">
+                  <div>
+                    <p class="section-eyebrow">Stock Manager</p>
+                    <h3>Inventory Controls</h3>
+                  </div>
+                  <button class="secondary-action" id="restockAllButton" type="button">Restock Low Items</button>
+                </div>
+
+                <label class="search-field compact-search">
+                  <input type="search" id="inventorySearchInput" placeholder="Search stock items">
+                </label>
+
+                <div class="inventory-list" id="inventoryList"></div>
+              </section>
+            </section>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <div class="receipt-modal hidden" id="receiptModal" aria-hidden="true">
+    <div class="receipt-dialog">
+      <div class="receipt-dialog-header">
+        <div>
+          <p class="section-eyebrow">Transaction Complete</p>
+          <h3>Receipt Ready</h3>
+        </div>
+        <button class="utility-button" id="closeReceiptButton" type="button">Close</button>
+      </div>
+
+      <div class="receipt-sheet" id="receiptModalBody"></div>
+
+      <div class="modal-actions">
+        <button class="secondary-action" id="printReceiptButton" type="button">Print Receipt</button>
+        <button class="primary-action" id="newSaleButton" type="button">Start New Sale</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
