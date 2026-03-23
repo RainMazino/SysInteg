@@ -5,16 +5,16 @@ const STORAGE_KEYS = {
 };
 
 const palettePairs = [
-  ["#dae9ff", "#8ab5f0"],
-  ["#f8e0e5", "#f0aab6"],
-  ["#f6ebcd", "#ddb76d"],
-  ["#e4efd9", "#88b774"],
-  ["#f9dce5", "#df7f9e"],
-  ["#efe6d9", "#c9a578"],
-  ["#e7e5f6", "#9992da"],
-  ["#e3f0ec", "#83baa8"],
-  ["#f7efe7", "#d6b28a"],
-  ["#d9ebff", "#77a7dd"]
+  ["#f8ede8", "#e3baba"],
+  ["#fdf5f2", "#eccfc6"],
+  ["#f2f0e9", "#d4c8b2"],
+  ["#edf1ec", "#bacab4"],
+  ["#fcf0f4", "#e4b1c1"],
+  ["#f5efeb", "#d2bdae"],
+  ["#f0eff6", "#bcb6d4"],
+  ["#eff4f3", "#a8c2bc"],
+  ["#f9f2ec", "#e0bfa3"],
+  ["#f9ecec", "#dfb3b3"]
 ];
 
 const categoryConfigs = [
