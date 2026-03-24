@@ -33,11 +33,22 @@ body {
   color: var(--text);
   overflow-x: hidden;
   overflow-y: auto;
-  background: #ffffff;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(211, 143, 95, 0.2), transparent 34%),
+    radial-gradient(circle at 88% 12%, rgba(206, 154, 142, 0.24), transparent 36%),
+    linear-gradient(160deg, #fef8f3 0%, #f8ece4 48%, #f2dfd3 100%);
 }
 
 body::before {
-  display: none;
+  content: "";
+  position: fixed;
+  inset: auto -140px -200px auto;
+  width: clamp(280px, 38vw, 520px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(181, 123, 111, 0.4), rgba(181, 123, 111, 0));
+  pointer-events: none;
+  z-index: -1;
 }
 
 button,
