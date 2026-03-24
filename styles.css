@@ -1,4 +1,5 @@
 :root {
+  --ui-scale: 1;
   --screen: #faf8f5;
   --screen-soft: #f5f0ec;
   --panel: #ffffff;
@@ -112,8 +113,10 @@ button {
 }
 
 .tablet {
-  width: 100%;
-  height: 100%;
+  width: calc(100% / var(--ui-scale));
+  height: calc(100% / var(--ui-scale));
+  transform: scale(var(--ui-scale));
+  transform-origin: top left;
 }
 
 .tablet-camera {
@@ -877,7 +880,7 @@ button {
   background: rgba(9, 17, 29, 0.62);
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 16px;
 }
 
 .receipt-modal.hidden {
@@ -885,22 +888,69 @@ button {
 }
 
 .receipt-dialog {
-  width: min(540px, 100%);
-  border-radius: 28px;
+  width: min(500px, 92vw);
+  border-radius: 24px;
   background: linear-gradient(180deg, #f8fbff, #edf5ff);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
-  padding: 18px;
+  padding: 14px;
+  max-height: min(88vh, 760px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
 }
 
 .modal-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 14px;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .modal-actions > * {
   flex: 1;
+}
+
+.receipt-dialog .receipt-sheet {
+  margin-top: 6px;
+  padding: 14px;
+  border-radius: 16px;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  overflow-y: auto;
+}
+
+.receipt-dialog .receipt-brand {
+  padding-bottom: 10px;
+}
+
+.receipt-dialog .receipt-brand strong {
+  font-size: 1rem;
+}
+
+.receipt-dialog .receipt-meta {
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.receipt-dialog .receipt-line {
+  padding: 6px 0;
+}
+
+.receipt-dialog .receipt-items {
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.receipt-dialog .receipt-total {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.receipt-modal .utility-button,
+.receipt-modal .secondary-action,
+.receipt-modal .primary-action {
+  padding: 10px 12px;
 }
 
 .empty-state {
@@ -1038,12 +1088,18 @@ button {
 }
 
 @media (max-width: 960px) {
+  :root {
+    --ui-scale: 1;
+  }
+
   .scene {
     padding: 20px 12px 30px;
   }
 
   .tablet {
+    width: 100%;
     height: 100%;
+    transform: none;
   }
 
   .tablet-screen {
@@ -1077,6 +1133,18 @@ button {
 
   .left-column {
     grid-template-rows: minmax(0, 1fr) clamp(260px, 40vh, 360px);
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1365px) {
+  :root {
+    --ui-scale: 0.9;
+  }
+}
+
+@media (min-width: 1366px) {
+  :root {
+    --ui-scale: 0.8;
   }
 }
 
